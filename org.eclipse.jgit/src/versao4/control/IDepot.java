@@ -83,10 +83,26 @@ public interface IDepot<Depot> {
 	 * @throws RevisionSyntaxException
 	 * @throws AmbiguousObjectException
 	 * @throws IOException
-	 * 
+	 *
 	 */
 	public void getLogs(Depot myDepot) throws NoHeadException, GitAPIException,
 			RevisionSyntaxException, AmbiguousObjectException, IOException;
 
+	/**
+	 * @param myDepot
+	 */
+	public void showBranch(Depot myDepot);
+
+	/**
+	 * @param myDepot
+	 * @param nameBranch
+	 */
+	public void createBranch(Depot myDepot, String nameBranch);
+
+	/**
+	 * @param myDepot
+	 * @param nameBranch
+	 */
+	public void deleteBranch(Depot myDepot, String nameBranch);
 
 }
