@@ -71,7 +71,7 @@ public class DepotControl implements IDepot<Depot> {
 
 	}
 
-	// NOTE: string file é o arquivo.extenção
+	// NOTE: string file é o arquivo.extensão
 
 	public void removeFile(String file, Depot myDepot)
 			throws NoWorkTreeException, GitAPIException {
