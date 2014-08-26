@@ -10,9 +10,11 @@ import org.eclipse.jgit.api.errors.TransportException;
 import org.eclipse.jgit.errors.AmbiguousObjectException;
 import org.eclipse.jgit.errors.NoWorkTreeException;
 import org.eclipse.jgit.errors.RevisionSyntaxException;
+import org.eclipse.jgit.lib.Repository;
+import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 
 /**
- * @author peter
+ * @author Souza e Urbieta
  * @param <Depot>
  *
  */
@@ -104,5 +106,27 @@ public interface IDepot<Depot> {
 	 * @param nameBranch
 	 */
 	public void deleteBranch(Depot myDepot, String nameBranch);
+
+	/**
+	 * @param myDepot
+	 * @param localPath
+	 * @param remotePath
+	 */
+	public void pull(Depot myDepot, String localPath, String remotePath);
+
+	/**
+	 * @param myDepot
+	 * @param branch1
+	 * @param branch2
+	 */
+	public void getDiff(Depot myDepot, String branch1, String branch2);
+
+	/**
+	 * @param repository
+	 * @param ref
+	 * @return abstractTreeIterator
+	 */
+	public AbstractTreeIterator prepareTreeParser(Repository repository,
+			String ref);
 
 }
