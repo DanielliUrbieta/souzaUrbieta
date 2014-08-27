@@ -1,13 +1,14 @@
 package versao4.view;
 
+import java.io.File;
 import java.io.IOException;
-//import java.util.ArrayList;
 
 import javax.swing.JOptionPane;
 
 import org.eclipse.jgit.api.errors.GitAPIException;
 import org.eclipse.jgit.api.errors.NoFilepatternException;
 
+import selectFilesAndDirectories.*;
 import versao4.control.DepotControl;
 import versao4.model.Depot;
 
@@ -16,6 +17,8 @@ import versao4.model.Depot;
  *
  */
 public class MainTest {
+
+
 
 	/**
 	 * @param args
@@ -29,6 +32,7 @@ public class MainTest {
 
 		Depot newRepo = new Depot();
 		DepotControl ctrlRepo = new DepotControl();
+		Select escolher = new Select();
 
 		int opcao;
 		do {
@@ -73,8 +77,8 @@ public class MainTest {
 				break;
 
 			case 3:
-				if (initialized == false) {
-					localPath = JOptionPane
+				//if (initialized == false) {
+				/*	localPath = JOptionPane
 							.showInputDialog("Digite o caminho do repositorio a adicionar o arquivo");
 					newRepo.setLocalPath(localPath);
 					ctrlRepo.init(newRepo);
@@ -82,7 +86,12 @@ public class MainTest {
 				}
 				while (filename == null || filename.equals(""))
 					filename = JOptionPane
-							.showInputDialog("Digite o nome do arquivo a ser adicionado");
+							.showInputDialog("Digite o nome do arquivo a ser adicionado");*/
+				File adicionar = escolher.chooseFile();
+				localPath = adicionar.getParent();
+				newRepo.setLocalPath(localPath);
+				ctrlRepo.init(newRepo);
+				filename = adicionar.getName();
 				ctrlRepo.add(filename, newRepo);
 
 				break;
