@@ -8,6 +8,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 
 import org.eclipse.jgit.api.MergeResult;
+import org.eclipse.jgit.api.PushCommand;
 import org.eclipse.jgit.api.RebaseResult;
 import org.eclipse.jgit.api.Git;
 import org.eclipse.jgit.api.InitCommand;
@@ -40,6 +41,9 @@ import org.eclipse.jgit.revwalk.RevCommit;
 import org.eclipse.jgit.revwalk.RevTree;
 import org.eclipse.jgit.revwalk.RevWalk;
 import org.eclipse.jgit.storage.file.FileRepositoryBuilder;
+import org.eclipse.jgit.transport.CredentialsProvider;
+import org.eclipse.jgit.transport.PushResult;
+import org.eclipse.jgit.transport.UsernamePasswordCredentialsProvider;
 import org.eclipse.jgit.treewalk.AbstractTreeIterator;
 import org.eclipse.jgit.treewalk.CanonicalTreeParser;
 
@@ -216,9 +220,9 @@ public class DepotControl implements IDepot<Depot> {
 
 			e.printStackTrace();
 		}
-		// repensar mostrar ou não o id do branch
+
 		for (org.eclipse.jgit.lib.Ref ref : call) {
-			System.out.println("Branch Created: " + ref + " " + ref.getName()); //$NON-NLS-1$ //$NON-NLS-2$
+			System.out.println("Branch Created: " + " " + ref.getName()); //$NON-NLS-1$ //$NON-NLS-2$
 
 		}
 		repository1.close();
@@ -291,6 +295,7 @@ public class DepotControl implements IDepot<Depot> {
 		}
 
 	}
+
 
 	@SuppressWarnings("null")
 	public void getDiff(Depot myDepot, String branch1, String branch2){
@@ -374,6 +379,29 @@ public class DepotControl implements IDepot<Depot> {
         return oldTreeParser;
     }
 
+	/**
+	 * @param gitPush
+	 */
+	@SuppressWarnings("null")
+	public void push(Git gitPush) {
+		CredentialsProvider cp = new UsernamePasswordCredentialsProvider(
+"", ""); //$NON-NLS-1$//$NON-NLS-2$
+		PushCommand pc = gitPush.push();
+		pc.setCredentialsProvider(cp).setForce(true).setPushAll();
+		Iterator<PushResult> it = null;
+		try {
+			it = pc.call().iterator();
+		} catch (TransportException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (GitAPIException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		if (it.hasNext()) {
+			System.out.println(it.next().toString());
+		}
+	}
 }
 
 
